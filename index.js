@@ -36,7 +36,7 @@ const generateHTML = (taskData) => {
       </div>
     </div>
     <div class="card">
-      <img src="https://drive.google.com/file/d/1Ex3UuZOSt91u89mYWdmv1DaCYstx_1iI/view?usp=drivesdk" class="card-img-top" alt="${taskData.title}-image">
+      <img src="${taskData.image}" class="card-img-top" alt="${taskData.title}-image">
       <div class="card-body">
         <p class="card-text">${taskData.description}</p>
         <span class="badge bg-primary">${taskData.type}</span>
