@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Page</title>
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <!-- Custom CSS -->
+        <style>
+            body {
+                background-color: #ebf3ff;
+            }
+            .login-box {
+                margin-top: 100px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0px 0px 5px #666;
+            }
+            .login-btn {
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-12">
+                    <div class="login-box">
+                        <h2 class="text-center mb-4">Login</h2>
+                        <p
+                            class="bg-danger text-center py-2 rounded d-none"
+                            id="invalid-msg"
+                        >
+                            Invalid Username or Password
+                        </p>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    placeholder="Enter email"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    placeholder="Password"
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-block login-btn"
+                            >
+                                Login
+                            </button>
+                        </form>
+                        <hr />
+                        <p class="text-center">
+                            Don't have an account?
+                            <a href="/signup.html">Sign up</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#login-form").submit(function (e) {
+                    e.preventDefault();
+                    var email = $("#email").val();
+                    var password = $("#password").val();
+                    // You can perform validations on the form fields here
+                    console.log(
+                        "\nEmail: " + email + "\nPassword: " + password
+                    );
+                    let users;
+                    if (localStorage.getItem("taskySidUser"))
+                        users = JSON.parse(
+                            localStorage.getItem("taskySidUser")
+                        ).users;
+                    else users = [];
+                    let i = 0,
+                        f = 0;
+                    for (; i < users.length; i++) {
+                        if (
+                            users[i].email == email &&
+                            users[i].password == password
+                        ) {
+                            document
+                                .getElementById("invalid-msg")
+                                .setAttribute(
+                                    "class",
+                                    "bg-danger text-center py-2 rounded d-none"
+                                );
+                            localStorage.setItem(
+                                "taskySidLoginUser",
+                                JSON.stringify({ loginUser: users[i] })
+                            );
+                            f = 1;
+                            window.location.href = "/index.html";
+                        }
+                    }
+                    if (f == 0) {
+                        document
+                            .getElementById("invalid-msg")
+                            .setAttribute(
+                                "class",
+                                "bg-danger text-center py-2 rounded"
+                            );
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
