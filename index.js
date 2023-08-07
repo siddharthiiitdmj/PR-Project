@@ -148,6 +148,14 @@ const reloadLocalStorage = () => {
   localStorage.setItem("taskySidCurPage", JSON.stringify({activePage: "home"}));
 
   const curUser = JSON.parse(localStorage.getItem("taskySidLoginUser")).loginUser;
+  if(!curUser || curUser == null)
+  {
+    document.getElementById("body").replaceChildren();
+    document.getElementById("body").innerHTML = 
+    `<h3 class="mx-5">Unauthorized Access</h3>
+     <a href="login.html" class="mx-5 btn btn-primary btn-block login-btn">Login</a>`
+     return;
+  }
   
   taskStorage = (curUser && curUser != null && curUser.cards) || [];
   if(taskStorage.length == 0)
@@ -178,7 +186,7 @@ const reloadStorage = () => {
     document.getElementById("body").replaceChildren();
     document.getElementById("body").innerHTML = 
     `<h3 class="mx-5">Unauthorized Access</h3>
-     <a href="/login.html" class="mx-5 btn btn-primary btn-block login-btn">Login</a>`
+     <a href="login.html" class="mx-5 btn btn-primary btn-block login-btn">Login</a>`
      return;
   }
 
